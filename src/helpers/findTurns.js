@@ -17,8 +17,9 @@ function findTurns(selectedChecker, board) {
   //is last col
 
   //are there allies
-  checkerColor == board[validMoves[0] - 1] && validMoves.shift();
-  checkerColor == board[validMoves[1] - 1] && validMoves.pop();
+  while (validMoves.length != 0 && checkerColor == board[validMoves[0] - 1]) {
+    validMoves.shift();
+  }
 
   return validMoves;
 }

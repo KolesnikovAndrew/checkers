@@ -5,10 +5,6 @@ import styles from "./Board.module.scss";
 import findTurns from "../../helpers/findTurns";
 function Board() {
   const [selectedChecker, selectChecker] = useState([1, "black"]);
-  const checkerBoard = [];
-  let turns = [];
-
-  turns = findTurns(selectedChecker, checkerBoard);
 
   //Draw board
   const board = [];
@@ -25,6 +21,40 @@ function Board() {
     i % 2 == 0 ? board.push(redRow) : board.push(blackRow);
   }
 
+  //Draw checkers
+
+  var checkerBoard = [];
+  {
+    board.map((rows, row) => {
+      if (row < 3) {
+        rows.map((squareColor, squareId) => {
+          if (squareColor == "red") {
+            checkerBoard.push("none");
+          } else {
+            checkerBoard.push("red");
+          }
+        });
+      }
+      if (row >= 3 && row < 5) {
+        return rows.map(() => {
+          checkerBoard.push("none");
+        });
+      }
+      if (row >= 5) {
+        return rows.map((squareColor, squareId) => {
+          if (squareColor == "red") {
+            checkerBoard.push("none");
+          } else {
+            checkerBoard.push("black");
+          }
+        });
+      }
+    });
+  }
+
+  let turns =
+    checkerBoard.length != 0 ? findTurns(selectedChecker, checkerBoard) : [];
+
   return (
     <>
       <div className={styles.board}>
@@ -33,7 +63,6 @@ function Board() {
           if (row < 3) {
             return rows.map((squareColor, squareId) => {
               let square = squareId + 1 + row * 8;
-
               if (squareColor == "red") {
                 checkerBoard.push("none");
                 return (
@@ -62,7 +91,7 @@ function Board() {
           if (row >= 3 && row < 5) {
             return rows.map((squareColor, squareId) => {
               let square = squareId + 1 + row * 8;
-              console.log(turns);
+
               checkerBoard.push("none");
               return (
                 <Square

@@ -10,9 +10,7 @@ function Checker({ color, squareId, selectChecker }) {
       onClick={handleCheckerSelect}
       className={styles.checker}
       style={{ backgroundColor: color }}
-    >
-      {squareId}
-    </div>
+    ></div>
   );
 }
 
